@@ -9,7 +9,13 @@
 
 .listgroupitem {
   position: relative;
-  border: 1px solid black;
+  border-radius: 14px;
+  background-color: rgba(0, 255, 255, 0.316);
+  margin-bottom: 5px;
+}
+
+.listgroupitem:last-child {
+  margin-bottom: 50px;
 }
 
 .right {
@@ -20,4 +26,9 @@
   border-radius: 15px;
   font-size: 22px;
   cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.right:hover {
+  transform: scale(1.2);
 }

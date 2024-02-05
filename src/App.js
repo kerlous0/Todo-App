@@ -5,9 +5,8 @@ import Modal from './components/Modal/Modal';
 function App() {
   const [todo, setTodo] = useState([]);
   // kero
-  
+
   const completeTodo = (id) => {
-    console.log(id)
     const complete = todo.filter((el) => {
       return(
         el.name + el.from + el.to !== id
