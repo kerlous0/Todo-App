@@ -57,11 +57,15 @@ body.active-modal {
     padding: 10px;
 }
 
-.divInput input {
+.divInput .input {
     border-radius: 10px;
     width: 350px;
-    padding: 8px;
+    /* padding: px; */
 }
+
+/* #outlined-basic {
+    width: 385px;
+} */
 
 .sumCan button {
     padding: 10px;

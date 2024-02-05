@@ -1,11 +1,23 @@
 import { useRef, useState } from "react";
 import './Modal.css'
+import * as React from 'react';
+import dayjs from 'dayjs';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
+import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker';
+import { StaticTimePicker } from '@mui/x-date-pickers/StaticTimePicker';
+import TextField from '@mui/material/TextField';
 
 export default function Modal({setTodo, todo}) {
     const [modal, setModal] = useState(false);
-    const todoName = useRef();
-    const from = useRef();
-    const to = useRef();
+    const [todoName, setTodoName] = useState("");
+    const [from, setFrom] = useState(dayjs());
+    const [to, setTo] = useState(dayjs());
+    const [realFrom, setRealFrom] = useState(dayjs());
+    const [reaTo, setRealTo] = useState(dayjs());
 
     const toggleModal = () => {
       setModal(!modal)
@@ -14,16 +26,30 @@ export default function Modal({setTodo, todo}) {
 
     const handleAdd = () => {
         const data = {
-            name: todoName.current.value,
-            from: from.current.value,
-            to: to.current.value
+            name: todoName,
+            from: realFrom,
+            to: reaTo
         }
         setTodo([...todo, data])
         toggleModal()
+        setTodoName("")
+        setFrom(dayjs())
+        setTo(dayjs())
     }
+
+    const handleFrom = (newValue) => {
+        setFrom(newValue)
+        setRealFrom(newValue.format('h:mm A'))
+      };
+
+    const handleTo = (newValue) => {
+        setTo(newValue)
+        setRealTo(newValue.format('h:mm A'))
+      };
 
     return(
         <>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
             <button className="btn btn-warning mt-5 m-auto " onClick={toggleModal}>Add Todo</button>
 
             {modal && (
@@ -32,16 +58,16 @@ export default function Modal({setTodo, todo}) {
                     <div className="m-content">
                         <h2 className="text-center">Todo</h2>
                         <div className="divInput">
-                            <label htmlFor="todo" className="label">Todo</label>
-                            <input type="text" id="todo" placeholder="Todo name" ref={todoName}></input>
+                            
+                            <TextField id="outlined-basic" className="input" label="Todo Name" variant="outlined" value={todoName} onChange={(event) => setTodoName(event.target.value)} />
                         </div>
                         <div className="divInput">
-                            <label htmlFor="From" className="label">From</label>
-                            <input type="text" id="From" placeholder="Start Time" ref={from}></input>
+             
+                            <TimePicker label="Start Time" id="From" className="input" value={from} onChange={handleFrom} />
+            
                         </div>
                         <div className="divInput">
-                            <label htmlFor="To" className="label">To</label>
-                            <input type="text" id="To" placeholder="End Time" ref={to}></input>
+                            <TimePicker label="End Time" id="To" className="input" value={to} onChange={handleTo} />
                         </div>
                         <div className="sumCan d-flex justify-content-around">
                             <button className="Add" onClick={()=>handleAdd()}>Add</button>
@@ -52,6 +78,7 @@ export default function Modal({setTodo, todo}) {
                 </div>
             </div>
         )}
+        </LocalizationProvider>
         </>
     );
 }
