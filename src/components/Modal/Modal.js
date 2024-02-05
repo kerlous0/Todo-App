@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import './Modal.css'
 import * as React from 'react';
 import dayjs from 'dayjs';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-
+import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
+import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker';
+import { StaticTimePicker } from '@mui/x-date-pickers/StaticTimePicker';
 import TextField from '@mui/material/TextField';
 
 export default function Modal({setTodo, todo}) {
@@ -13,8 +16,8 @@ export default function Modal({setTodo, todo}) {
     const [todoName, setTodoName] = useState("");
     const [from, setFrom] = useState(dayjs());
     const [to, setTo] = useState(dayjs());
-    const [realFrom, setRealFrom] = useState(dayjs());
-    const [reaTo, setRealTo] = useState(dayjs());
+    const [realFrom, setRealFrom] = useState(dayjs().format('h:mm A'));
+    const [reaTo, setRealTo] = useState(dayjs().format('h:mm A'));
 
     const toggleModal = () => {
       setModal(!modal)
@@ -32,6 +35,8 @@ export default function Modal({setTodo, todo}) {
         setTodoName("")
         setFrom(dayjs())
         setTo(dayjs())
+        setRealFrom(dayjs().format('h:mm A'))
+        setRealTo(dayjs().format('h:mm A'))
     }
 
     const handleFrom = (newValue) => {
@@ -56,7 +61,7 @@ export default function Modal({setTodo, todo}) {
                         <h2 className="text-center">Todo</h2>
                         <div className="divInput">
                             
-                            <TextField id="outlined-basic" className="input" label="Todo Name" variant="outlined" value={todoName} onChange={(event) => setTodoName(event.target.value)} />
+                            <TextField required id="outlined-basic" className="input" label="Todo Name" variant="outlined" value={todoName} onChange={(event) => setTodoName(event.target.value)} />
                         </div>
                         <div className="divInput">
              
@@ -67,7 +72,7 @@ export default function Modal({setTodo, todo}) {
                             <TimePicker label="End Time" id="To" className="input" value={to} onChange={handleTo} />
                         </div>
                         <div className="sumCan d-flex justify-content-around">
-                            <button className="Add" onClick={()=>handleAdd()}>Add</button>
+                            {todoName&&<button type="submit" className="Add" onClick={()=>handleAdd()}>Add</button>}
                             <button className="Cancel" onClick={toggleModal}>Cancel</button>
                         </div>
                     
