@@ -16,8 +16,12 @@ export default function Modal({setTodo, todo}) {
     const [reaTo, setRealTo] = useState(dayjs().format('h:mm A'));
 
     const toggleModal = () => {
-      setModal(!modal)
-
+        setModal(!modal)
+        setTodoName("")
+        setFrom(dayjs())
+        setTo(dayjs())
+        setRealFrom(dayjs().format('h:mm A'))
+        setRealTo(dayjs().format('h:mm A'))
     };
 
     const handleAdd = () => {
@@ -46,7 +50,7 @@ export default function Modal({setTodo, todo}) {
       };
 
     return(
-        <>
+        
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <button className="btn btn-warning mt-5 m-auto " onClick={toggleModal}>Add Todo</button>
 
@@ -77,6 +81,6 @@ export default function Modal({setTodo, todo}) {
             </div>
         )}
         </LocalizationProvider>
-        </>
+        
     );
 }
