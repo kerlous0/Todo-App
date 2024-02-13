@@ -11,7 +11,7 @@
   position: relative;
   border-radius: 14px;
   background-color: rgba(0, 255, 255, 0.316);
-  margin-bottom: 5px;
+  margin: 0 auto 15px auto ;
 }
 
 .listgroupitem:last-child {
@@ -29,6 +29,17 @@
   transition: all .2s ease-in-out;
 }
 
-.right:hover {
+.left {
+  position: absolute;
+  right: -13px;
+  top: -5px;
+  background-color: rgb(255, 120, 47);
+  border-radius: 15px;
+  font-size: 27px;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.right:hover, .left:hover {
   transform: scale(1.2);
 }
